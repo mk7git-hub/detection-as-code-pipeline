@@ -1,5 +1,5 @@
-pysigma>=0.11,<1
-pysigma-backend-splunk>=1.1,<2
+pysigma==2.0.2
+pysigma-backend-splunk==3.0.0
 pyyaml>=6
 pytest>=8
 yamllint>=1.35
