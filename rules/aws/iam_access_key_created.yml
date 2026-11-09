@@ -1,0 +1,25 @@
+title: IAM Access Key Created for Another User
+id: 4d6c8a1e-0b7f-4c1e-9f1a-1a2b3c4d5e03
+status: stable
+description: Detects creation of long-lived IAM access keys, a persistence technique. Keys created by a user for themselves are filtered.
+author: DBK7
+date: 2026-11-06
+references:
+  - https://attack.mitre.org/techniques/T1098/001/
+tags:
+  - attack.persistence
+  - attack.t1098.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: iam.amazonaws.com
+    eventName: CreateAccessKey
+  filter_self:
+    # CloudTrail omits userName when a user creates a key for themselves
+    requestParameters.userName|exists: false
+  condition: selection and not filter_self
+falsepositives:
+  - Service-account onboarding by IAM admins
+level: medium

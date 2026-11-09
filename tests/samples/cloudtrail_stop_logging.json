@@ -1,0 +1,42 @@
+{
+  "should_match": [
+    {
+      "eventVersion": "1.09",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "alice",
+        "arn": "arn:aws:iam::111122223333:user/alice"
+      },
+      "eventSource": "cloudtrail.amazonaws.com",
+      "eventName": "StopLogging"
+    },
+    {
+      "eventVersion": "1.09",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "alice",
+        "arn": "arn:aws:iam::111122223333:user/alice"
+      },
+      "eventSource": "cloudtrail.amazonaws.com",
+      "eventName": "DeleteTrail"
+    }
+  ],
+  "should_not_match": [
+    {
+      "eventVersion": "1.09",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.10",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "alice",
+        "arn": "arn:aws:iam::111122223333:user/alice"
+      },
+      "eventSource": "cloudtrail.amazonaws.com",
+      "eventName": "DescribeTrails"
+    }
+  ]
+}

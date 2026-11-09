@@ -1,0 +1,23 @@
+title: EC2 Instance User Data Modified
+id: 4d6c8a1e-0b7f-4c1e-9f1a-1a2b3c4d5e07
+status: experimental
+description: Detects changes to EC2 user data, which can be abused to run code as root on next boot.
+author: DBK7
+date: 2026-11-06
+references:
+  - https://attack.mitre.org/techniques/T1059/
+tags:
+  - attack.execution
+  - attack.t1059
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: ec2.amazonaws.com
+    eventName: ModifyInstanceAttribute
+    requestParameters.userData|exists: true
+  condition: selection
+falsepositives:
+  - Golden image rollouts
+level: medium

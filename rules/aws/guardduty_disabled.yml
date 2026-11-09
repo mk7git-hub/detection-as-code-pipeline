@@ -1,0 +1,25 @@
+title: GuardDuty Detector Deleted or Disabled
+id: 4d6c8a1e-0b7f-4c1e-9f1a-1a2b3c4d5e04
+status: stable
+description: Detects deletion or suspension of GuardDuty, removing threat detection coverage.
+author: DBK7
+date: 2026-11-06
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+tags:
+  - attack.defense-evasion
+  - attack.t1562.001
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: guardduty.amazonaws.com
+    eventName:
+      - DeleteDetector
+      - UpdateDetector
+      - DisassociateFromMasterAccount
+  condition: selection
+falsepositives:
+  - Account decommissioning
+level: high

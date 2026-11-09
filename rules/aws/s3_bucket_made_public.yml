@@ -1,0 +1,24 @@
+title: S3 Public Access Block Removed
+id: 4d6c8a1e-0b7f-4c1e-9f1a-1a2b3c4d5e05
+status: stable
+description: Detects removal of an S3 public access block, often a precursor to data exposure or exfiltration.
+author: DBK7
+date: 2026-11-06
+references:
+  - https://attack.mitre.org/techniques/T1530/
+tags:
+  - attack.collection
+  - attack.t1530
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: s3.amazonaws.com
+    eventName:
+      - DeleteBucketPublicAccessBlock
+      - DeleteAccountPublicAccessBlock
+  condition: selection
+falsepositives:
+  - Intentional public website buckets (should be tagged and allow-listed)
+level: high

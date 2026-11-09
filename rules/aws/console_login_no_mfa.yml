@@ -1,0 +1,25 @@
+title: Console Login Without MFA
+id: 4d6c8a1e-0b7f-4c1e-9f1a-1a2b3c4d5e06
+status: stable
+description: Detects successful IAM user console sign-in without multi-factor authentication.
+author: DBK7
+date: 2026-11-06
+references:
+  - https://attack.mitre.org/techniques/T1078/004/
+tags:
+  - attack.initial-access
+  - attack.t1078.004
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventName: ConsoleLogin
+    additionalEventData.MFAUsed: 'No'
+    responseElements.ConsoleLogin: Success
+  filter_sso:
+    userIdentity.type: AssumedRole
+  condition: selection and not filter_sso
+falsepositives:
+  - Federated users whose MFA is enforced at the IdP
+level: medium
